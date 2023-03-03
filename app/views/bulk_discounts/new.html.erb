@@ -9,13 +9,15 @@
   </nav>
 </div>
 
-<p><%= link_to 'Create a new discount', new_merchant_bulk_discount_path(@merchant.id) %> </p>
+<h1> Add a new bulk discount: </h1>
 
-<h4> All your bulk discounts: </h4>
-<% @discounts.each do |discount| %>
-  <div id = "merchant_discount-<%=discount.id%>">
-    <p><%= link_to "Discount ##{discount.id}", merchant_bulk_discount_path(@merchant.id, discount.id)%></p>
-    <p>Discount amount: <%=discount.discount%>%</p>
-    <p>Discount quantity threshold: <%=discount.quantity%> items</p>
-  <div>
+<%= form_with model: [:merchant, @discount], method: :post, local: true do |form| %>
+  <%= form.label :quantity, "Quantity threshold:" %>
+  <%= form.number_field :quantity %>
+  <p>
+    <%= form.label :discount, "Discount percentage:"%>
+    <%= form.number_field :discount, within: 1...101 %>%
+  </p>
+
+  <%= form.submit %>  
 <% end %>

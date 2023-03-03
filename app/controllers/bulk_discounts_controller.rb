@@ -7,4 +7,26 @@ class BulkDiscountsController < ApplicationController
   def show
     @discount = BulkDiscount.find(params[:id])
   end
+
+  def new
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = BulkDiscount.new
+  end
+
+  def create
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = @merchant.bulk_discounts.new(bulk_discount_params)
+    if params[:bulk_discount][:quantity].blank? || params[:bulk_discount][:discount].blank?
+      flash[:notice] = "One or more of the required fields is empty. Bulk Discount cannot be Created!"
+      redirect_to new_merchant_bulk_discount_path(@merchant.id)
+    elsif @discount.save
+      flash[:notice] = "Discount##{@discount.id} has been Created!"
+      redirect_to merchant_bulk_discounts_path(@merchant.id)
+    end
+  end
+
+private
+  def bulk_discount_params
+    params.require(:bulk_discount).permit(:quantity, :discount)
+  end
 end
