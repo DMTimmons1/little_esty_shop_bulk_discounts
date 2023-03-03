@@ -8,3 +8,13 @@
     </ul>
   </nav>
 </div>
+
+
+<h4> All your bulk discounts: </h4>
+<% @discounts.each do |discount| %>
+  <div id = "merchant_discount-<%=discount.id%>">
+    <p><%= link_to "Discount ##{discount.id}", merchant_bulk_discount_path(@merchant.id, discount.id)%></p>
+    <p>Discount amount: <%=discount.discount%>%</p>
+    <p>Discount quantity threshold: <%=discount.quantity%> items</p>
+  <div>
+<% end %>
