@@ -109,11 +109,11 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
       }
 
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant))
+      
       expect(page).to_not have_content("Discount amount: 30%")
       expect(page).to_not have_content("Discount quantity threshold: 15 items")
 
       expect(page).to have_content("Discount ##{@bulk_discount_2.id} has been Deleted!")
-
     end
   end
 end
