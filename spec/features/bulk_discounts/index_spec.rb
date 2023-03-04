@@ -92,6 +92,7 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
 
   describe 'User Story 3' do
     it 'When a visitor visits the bulk discounts index, next to each bulk discount they see a link to delete it' do
+
       within("#merchant_discount-#{@bulk_discount_1.id}") {
         expect(page).to have_button("Delete Discount ##{@bulk_discount_1.id}")
       }
