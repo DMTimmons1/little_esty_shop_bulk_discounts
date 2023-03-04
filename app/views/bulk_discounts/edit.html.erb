@@ -9,11 +9,15 @@
   </nav>
 </div>
 
+<h1> Edit bulk discount: </h1>
 
-<h2><%="Discount ##{@discount.id}"%></h2>
+<%= form_with model: [@merchant, @discount], method: :patch, local: true do |form| %>
+  <%= form.label :quantity, "Quantity threshold:" %>
+  <%= form.number_field :quantity, value: @discount.quantity%>
+  <p>
+    <%= form.label :discount, "Discount percentage:"%>
+    <%= form.number_field :discount, within: 1...101, value: @discount.discount %>%
+  </p>
 
-<h3>Quantity threshold: <%= @discount.quantity %> items</h3>
-
-<h3>Discount percentage: <%= @discount.discount %>%</h3>
-
-<%= link_to "Edit this Bulk Discount", edit_merchant_bulk_discount_path(@merchant.id, @discount.id)%>
+  <%= form.submit %>  
+<% end %>
