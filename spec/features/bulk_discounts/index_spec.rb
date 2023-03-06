@@ -50,15 +50,15 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
   describe 'User Story 1' do
     it 'shows the visitor all of their bulk discounts including the percentage discount and quantity thresholds' do
       within("#merchant_discount-#{@bulk_discount_1.id}") {
-        expect(page).to have_content("Discount amount: 20%")
+        expect(page).to have_content("Discount amount: 20.0%")
         expect(page).to have_content("Discount quantity threshold: 10 items")
       }
       within("#merchant_discount-#{@bulk_discount_2.id}") {
-        expect(page).to have_content("Discount amount: 30%")
+        expect(page).to have_content("Discount amount: 30.0%")
         expect(page).to have_content("Discount quantity threshold: 15 items")
       }
       within("#merchant_discount-#{@bulk_discount_3.id}") {
-        expect(page).to have_content("Discount amount: 5%")
+        expect(page).to have_content("Discount amount: 5.0%")
         expect(page).to have_content("Discount quantity threshold: 2 items")
       }
     end
@@ -111,7 +111,7 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
 
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant))
       
-      expect(page).to_not have_content("Discount amount: 30%")
+      expect(page).to_not have_content("Discount amount: 30.0%")
       expect(page).to_not have_content("Discount quantity threshold: 15 items")
 
       expect(page).to have_content("Discount ##{@bulk_discount_2.id} has been Deleted!")
