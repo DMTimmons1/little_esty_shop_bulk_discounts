@@ -103,8 +103,7 @@ RSpec.describe 'invoices show' do
   describe 'User Story 6' do
     it 'shows the visitor of the Merchant Invoice Show Page, the total revenue for my merchant from this invoice
     and the total discounted revenue for my merchant from this invoice which includes bulk discounts in the calculation' do
-      @bulk_discount = BulkDiscount.create!(quantity: 10, discount: 20, merchant_id: @merchant1.id)\
-
+      @bulk_discount = BulkDiscount.create!(quantity: 10, discount: 20, merchant_id: @merchant1.id)
       visit merchant_invoice_path(@merchant1, @invoice_1)
 
       expect(page).to have_content('Total Revenue: 162.0')
@@ -112,4 +111,14 @@ RSpec.describe 'invoices show' do
     end
   end
 
+  describe 'User Story 7' do
+    it 'shows the visitor of the merchant invoice show page a link next to each invoice item 
+    that links to the show page for the bulk discount that was applied (if any)' do
+      @bulk_discount = BulkDiscount.create!(quantity: 10, discount: 20, merchant_id: @merchant1.id)
+      visit merchant_invoice_path(@merchant1, @invoice_1)
+      within("#current-invoice-status") {
+        expect(page).to have_link("Bulk Discount ##{@bulk_discount.id}")
+      }
+    end
+  end
 end
