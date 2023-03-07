@@ -42,7 +42,7 @@ RSpec.describe InvoiceItem, type: :model do
     end
 
     it 'applied_discount' do
-      expect(@ii_1.applied_discount).to eq([@bd])
+      expect(@ii_1.applied_discount).to eq(@bd)
     end
   end
 end
