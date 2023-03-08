@@ -44,6 +44,8 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
     @bulk_discount_2 = BulkDiscount.create!(quantity: 15, discount: 30, merchant_id: @merchant.id)
     @bulk_discount_3 = BulkDiscount.create!(quantity: 2, discount: 5, merchant_id: @merchant.id)
 
+    @holiday_info = SwagFacade.new.holiday.sort_by(&:date).take(3)
+
     visit merchant_bulk_discounts_path(@merchant)
 
   end
@@ -115,6 +117,28 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
       expect(page).to_not have_content("Discount quantity threshold: 15 items")
 
       expect(page).to have_content("Discount ##{@bulk_discount_2.id} has been Deleted!")
+    end
+  end
+
+  describe 'User Story 9' do
+    it 'shows the visitor a section with a header of Upcoming Holidays
+    and in this section the name and date of the next 3 upcoming US holidays are listed.' do
+      within("#upcoming-holidays") {
+        expect(page).to have_content("Upcoming Holidays:")
+  
+      }
+      within("#holiday-#{@holiday_info.first.date}") {
+        expect(page).to have_content("Holiday: Good Friday")
+        expect(page).to have_content("Holiday Date: 2023-04-07")
+      }
+      within("#holiday-#{@holiday_info.second.date}") {
+        expect(page).to have_content("Holiday: Memorial Day")
+        expect(page).to have_content("Holiday Date: 2023-05-29")
+      }
+      within("#holiday-#{@holiday_info.third.date}") {
+        expect(page).to have_content("Holiday: Juneteenth")
+        expect(page).to have_content("Holiday Date: 2023-06-19")
+      }
     end
   end
 end
