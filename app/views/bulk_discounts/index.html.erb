@@ -8,7 +8,17 @@
     </ul>
   </nav>
 </div>
-
+<div id = "upcoming-holidays">
+  <h4> Upcoming Holidays: </h4>
+  <% @holiday_info.each do |holiday| %>
+    <div id = "holiday-<%= holiday.date %>">
+      <ul>
+        <p>Holiday: <%= holiday.name %></p>
+        <p>Holiday Date: <%= holiday.date%></p>
+      </ul>
+    <div>
+  <% end %>
+<div>
 <p><%= link_to 'Create a new discount', new_merchant_bulk_discount_path(@merchant.id) %> </p>
 
 <h4> All your bulk discounts: </h4>

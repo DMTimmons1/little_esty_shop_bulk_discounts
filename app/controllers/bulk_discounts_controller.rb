@@ -2,6 +2,7 @@ class BulkDiscountsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @discounts = @merchant.bulk_discounts
+    @holiday_info = SwagFacade.new.holiday.sort_by(&:date).take(3)
   end
 
   def show
