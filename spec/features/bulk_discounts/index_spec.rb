@@ -125,7 +125,7 @@ RSpec.describe 'Merchant Bulk Discounts Index' do
     and in this section the name and date of the next 3 upcoming US holidays are listed.' do
       within("#upcoming-holidays") {
         expect(page).to have_content("Upcoming Holidays:")
-  
+
       }
       within("#holiday-#{@holiday_info.first.date}") {
         expect(page).to have_content("Holiday: Good Friday")
